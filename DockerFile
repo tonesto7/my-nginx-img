@@ -1,0 +1,38 @@
+# syntax=docker/dockerfile:experimental
+ARG NGINX_VERSION=1.21.6
+FROM debian:bullseye
+#FROM nginx:${NGINX_VERSION} as build
+
+RUN apt-get update
+RUN apt-get install -y \
+    openssh-client \
+    git \
+    wget \
+    libxml2 \
+    libxslt1-dev \
+    libpcre3 \
+    libpcre3-dev \
+    zlib1g \
+    zlib1g-dev \
+    openssl \
+    libssl-dev \
+    libtool \
+    automake \
+    gcc \
+    g++ \
+    nginx-full \
+    libnginx-mod-http-auth-pam \
+    libnginx-mod-http-dav-ext \
+    libnginx-mod-http-echo \
+    libnginx-mod-http-geoip \
+    libnginx-mod-http-image-filter \
+    libnginx-mod-http-subs-filter \ 
+    libnginx-mod-http-upstream-fair \
+    libnginx-mod-http-xslt-filter \
+    libnginx-mod-stream \
+    make
+
+RUN rm -rf /var/cache/apt
+
+CMD ["nginx -g daemon on;"]
+EXPOSE 80 443
